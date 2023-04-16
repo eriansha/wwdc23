@@ -22,6 +22,7 @@ struct AngklungView: View {
                 width: 100 - (5 * CGFloat(ratio)),
                 height: 200 - (10 * CGFloat(ratio))
             )
+            .modifier(TiltingAnimation(isOn: wiggleTogle))
             .rotationEffect(.degrees(wiggleTogle ? 5 : 0))
             .offset(offset)
             .onTapGesture {
