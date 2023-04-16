@@ -28,7 +28,7 @@ struct HomeView: View {
                     }
                     
                     Text("Playing Angklung interactively")
-                        .font(.body)
+                        .font(.title)
                         .foregroundColor(.white)
                 }
                 .padding(.bottom, 35)

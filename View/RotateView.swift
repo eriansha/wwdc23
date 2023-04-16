@@ -15,9 +15,10 @@ struct RotateView: View {
             BackgroundView()
             
             VStack(alignment: .center) {
-                Text("We suggest rotating your device to get the best experience!")
+                Text("We suggest rotating your device into landscape to get the best experience!")
                     .font(.title)
                     .foregroundColor(textColor)
+                    .multilineTextAlignment(.center)
                     .padding(.bottom, 25)
                 
                 Image(systemName: "ipad")
@@ -39,6 +40,7 @@ struct RotateView: View {
                         .padding(.horizontal, 30)
                 }.buttonStyle(.bordered)
             }
+            .frame(maxWidth: 600)
         }
     }
 }
