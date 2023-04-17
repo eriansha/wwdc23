@@ -9,6 +9,7 @@ import SwiftUI
 
 struct InstructionView: View {
     @State private var isRotate: Bool = false
+    @State private var orientation = UIDeviceOrientation.unknown
     
     let paragraphs: [String] = [
         "To play the Angklung, you need to hold the instrument by the frame and shake it. The musician usually holds several tubes in each hand, and by shaking them in different combinations, melodies can be created. To play a melody, you need to coordinate with other musicians and play your part at the right time."
@@ -33,7 +34,7 @@ struct InstructionView: View {
                     }
                 }
                 .padding(.bottom, 30)
-                .frame(maxWidth: 1100)
+                .frame(maxWidth: orientation.isLandscape ? 1000 : 700)
                 
                 Image("angklungDo")
                     .resizable()
@@ -58,6 +59,9 @@ struct InstructionView: View {
                 .background(primaryButtonColor)
                 .cornerRadius(8)
             }
+        }
+        .onRotate { newOrientation in
+            orientation = newOrientation
         }
     }
 }

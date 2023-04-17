@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AboutView: View {
+    @State private var orientation = UIDeviceOrientation.unknown
+    
     let paragraphs: [String] = [
         "Angklung is a traditional musical instrument from Indonesia that is made of bamboo. It consists of a set of bamboo tubes of different lengths that are suspended on a frame. Each tube is tuned to a specific pitch, and when shaken, it produces a distinct sound.",
         "Playing the angklung is a unique experience that requires coordination and teamwork. The instrument's melodic and soothing sound makes it a popular choice in traditional Indonesian music. The angklung has been recognized by UNESCO as a Masterpiece of Oral and Intangible Heritage of Humanity, which emphasizes its importance in Indonesian culture."
@@ -33,7 +35,7 @@ struct AboutView: View {
                     }
                 }
                 .padding(.bottom, 50)
-                .frame(maxWidth: 1100)
+                .frame(maxWidth: orientation.isLandscape ? 1000 : 700)
                 
                 NavigationLink {
                     InstructionView()
@@ -48,6 +50,9 @@ struct AboutView: View {
                 .cornerRadius(8)
                 
             }
+        }
+        .onRotate { newOrientation in
+            orientation = newOrientation
         }
     }
 }
