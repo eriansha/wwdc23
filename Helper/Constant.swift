@@ -8,5 +8,6 @@
 import Foundation
 import SwiftUI
 
+let primaryButtonColor = Color("primaryButtonColor")
 let backgroundColor = Color("backgroundColor")
 let textColor = Color("textColor")

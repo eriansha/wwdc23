@@ -40,7 +40,10 @@ struct HomeView: View {
                         .font(.largeTitle)
                         .padding(.vertical, 5)
                         .padding(.horizontal, 30)
-                }.buttonStyle(.bordered)
+                }
+                .buttonStyle(.bordered)
+                .background(primaryButtonColor)
+                .cornerRadius(8)
             }
         }
     }
