@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct InstructionView: View {
+    @State private var isDisabled: Bool = true
     @State private var isRotate: Bool = false
     @State private var orientation = UIDeviceOrientation.unknown
     
     let paragraphs: [String] = [
         "To start the game, simply tap on the Angklung instrument that appears on the screen. The instrument will produce a specific tone each time you tap on it.",
+        "Try to tap Angklung below!"
     ]
     
     var body: some View {
@@ -35,17 +37,18 @@ struct InstructionView: View {
                 }
                 .padding(.bottom, 30)
                 .frame(maxWidth: 900)
-            
-                Image("angklungDo")
-                    .resizable()
-                    .padding(.bottom, 50)
-                    .rotationEffect(.degrees(isRotate ? -20 : 0))
-                    .frame(width: 150, height: 300)
-                    .onAppear {
-                        withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
-                            isRotate.toggle()
+                
+                AngklungView(
+                    soundPath: "1_do",
+                    imagePath: "angklungDo",
+                    ratio: 1
+                )
+                .simultaneousGesture(
+                    TapGesture()
+                        .onEnded { _ in
+                            self.isDisabled = false
                         }
-                    }
+                )
                 
                 NavigationLink {
                     InstrumentView()
@@ -55,13 +58,13 @@ struct InstructionView: View {
                         .padding(.vertical, 5)
                         .padding(.horizontal, 30)
                 }
+                .disabled(isDisabled)
                 .buttonStyle(.bordered)
-                .background(primaryButtonColor)
+                .background(
+                    !isDisabled ? primaryButtonColor : .clear
+                )
                 .cornerRadius(8)
             }
-        }
-        .onRotate { newOrientation in
-            orientation = newOrientation
         }
     }
 }

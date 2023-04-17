@@ -11,8 +11,8 @@ struct AngklungView: View {
     public var soundPath: String
     public var imagePath: String
     public var ratio: Int
-    public var notation: String
-    public var showGlowing: Bool
+    public var notation: String = ""
+    public var showGlowing: Bool = false
     
     @State private var opacityNotation: Double = 0.0
     @State private var offsetNotation: CGFloat = -200
@@ -22,29 +22,31 @@ struct AngklungView: View {
     
     var body: some View {
         ZStack {
-            Text(notation)
-                .font(.largeTitle)
-                .foregroundColor(.white)
-                .fontWeight(.light)
-                .opacity(opacityNotation)
-                .offset(x: 0, y: offsetNotation)
-                .onChange(of: wiggleTogle) { newValue in
-                    if newValue {
-                        self.offsetNotation = -200
-                        
-                        withAnimation(.easeInOut(duration: 0.5)) {
-                            self.opacityNotation = 1.0
-                            self.offsetNotation += 50
-                        }
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            if !notation.isEmpty {
+                Text(notation)
+                    .font(.largeTitle)
+                    .foregroundColor(.white)
+                    .fontWeight(.light)
+                    .opacity(opacityNotation)
+                    .offset(x: 0, y: offsetNotation)
+                    .onChange(of: wiggleTogle) { newValue in
+                        if newValue {
+                            self.offsetNotation = -200
+                            
                             withAnimation(.easeInOut(duration: 0.5)) {
-                                self.opacityNotation = 0.0
-                                self.offsetNotation -= 50
+                                self.opacityNotation = 1.0
+                                self.offsetNotation += 50
+                            }
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                withAnimation(.easeInOut(duration: 0.5)) {
+                                    self.opacityNotation = 0.0
+                                    self.offsetNotation -= 50
+                                }
                             }
                         }
                     }
-                }
+            }
             
             Image(imagePath)
                 .resizable()
