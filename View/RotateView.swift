@@ -15,7 +15,7 @@ struct RotateView: View {
             BackgroundView()
             
             VStack(alignment: .center) {
-                Text("We suggest rotating your device into landscape to get the best experience!")
+                Text("Rotating your device into landscape mode to get best experience!")
                     .font(.title)
                     .foregroundColor(textColor)
                     .multilineTextAlignment(.center)

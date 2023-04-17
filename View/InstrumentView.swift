@@ -8,6 +8,14 @@
 import SwiftUI
 
 struct InstrumentView: View {
+    @State private var opacityInstruction: CGFloat = 0.0
+    @State private var showCoachmark: Bool = false
+    
+    let instructions = [
+        "Experimenting your creativity to create melodies by tapping on the Angklung in different sequences and rhythms.",
+        "Have fun and enjoy the soothing sounds of the Angklung instrument!"
+    ]
+    
     private var instruments: [Angklung] = [
         .init(
             order: 1,
@@ -55,27 +63,56 @@ struct InstrumentView: View {
         ZStack {
             BackgroundView()
             
-            Image("angklungRack")
-                .resizable()
-                .frame(
-                    width: 1200,
-                    height: 400
-                )
-            
-            HStack(alignment: .top) {
-                ForEach(instruments, id: \.self) { instrument in
-                    AngklungView(
-                        soundPath: instrument.soundPath,
-                        imagePath: instrument.imagePath,
-                        ratio: instrument.order,
-                        notation: instrument.getNumericNotation()
-                    ).offset(
-                        CGSize(
-                            width: 0,
-                            height: -40 + (10 * CGFloat(instrument.order))
+            VStack(alignment: .leading) {
+                Text(instructions[0])
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .opacity(opacityInstruction)
+                    .frame(width: 1000)
+                    .multilineTextAlignment(.leading)
+                    .onAppear(perform: {
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                self.showCoachmark.toggle()
+                                self.opacityInstruction = 1.0
+                            }
+                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                self.showCoachmark.toggle()
+                                self.opacityInstruction = 0.0
+                            }
+                        }
+                    })
+                
+                ZStack {
+                    Image("angklungRack")
+                        .resizable()
+                        .frame(
+                            width: 1200,
+                            height: 400
                         )
-                    )
+                    
+                    HStack(alignment: .top) {
+                        ForEach(instruments, id: \.self) { instrument in
+                            AngklungView(
+                                soundPath: instrument.soundPath,
+                                imagePath: instrument.imagePath,
+                                ratio: instrument.order,
+                                notation: instrument.getNumericNotation(),
+                                showGlowing: showCoachmark
+                            ).offset(
+                                CGSize(
+                                    width: 0,
+                                    height: -40 + (10 * CGFloat(instrument.order))
+                                )
+                            )
+                        }
+                    }
                 }
+                .frame(height: 600)
             }
         }
     }

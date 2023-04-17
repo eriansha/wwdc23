@@ -12,6 +12,7 @@ struct AngklungView: View {
     public var imagePath: String
     public var ratio: Int
     public var notation: String
+    public var showGlowing: Bool
     
     @State private var opacityNotation: Double = 0.0
     @State private var offsetNotation: CGFloat = -200
@@ -54,6 +55,7 @@ struct AngklungView: View {
                 .modifier(TiltingAnimation(isOn: wiggleTogle))
                 .rotationEffect(.degrees(wiggleTogle ? 5 : 0))
                 .offset(offset)
+                .glow(color: .yellow, radius: showGlowing ? 36 : 0)
                 .onTapGesture {
                     withAnimation(.easeInOut(duration: 0.5)) {
                         offset = CGSize(
@@ -89,8 +91,8 @@ struct AngklungView_Previews: PreviewProvider {
                 soundPath: "2_re",
                 imagePath: "angklungRe",
                 ratio: 2,
-                notation: "Do"
-                // onTapGesture: {}
+                notation: "Do",
+                showGlowing: false
             )
         }
         .previewInterfaceOrientation(.landscapeLeft)
