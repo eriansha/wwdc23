@@ -54,7 +54,7 @@ struct InstrumentView: View {
     var body: some View {
         ZStack {
             BackgroundView()
-
+            
             Image("angklungRack")
                 .resizable()
                 .frame(
@@ -67,12 +67,14 @@ struct InstrumentView: View {
                     AngklungView(
                         soundPath: instrument.soundPath,
                         imagePath: instrument.imagePath,
-                        ratio: instrument.order
+                        ratio: instrument.order,
+                        notation: instrument.getNumericNotation()
                     ).offset(
                         CGSize(
                             width: 0,
                             height: -40 + (10 * CGFloat(instrument.order))
-                        ))
+                        )
+                    )
                 }
             }
         }
