@@ -12,7 +12,7 @@ struct InstructionView: View {
     @State private var orientation = UIDeviceOrientation.unknown
     
     let paragraphs: [String] = [
-        "To play the Angklung, you need to hold the instrument by the frame and shake it. The musician usually holds several tubes in each hand, and by shaking them in different combinations, melodies can be created. To play a melody, you need to coordinate with other musicians and play your part at the right time."
+        "To start the game, simply tap on the Angklung instrument that appears on the screen. The instrument will produce a specific tone each time you tap on it.",
     ]
     
     var body: some View {
@@ -34,8 +34,8 @@ struct InstructionView: View {
                     }
                 }
                 .padding(.bottom, 30)
-                .frame(maxWidth: orientation.isLandscape ? 1000 : 700)
-                
+                .frame(maxWidth: 900)
+            
                 Image("angklungDo")
                     .resizable()
                     .padding(.bottom, 50)
