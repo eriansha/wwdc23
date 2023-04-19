@@ -17,7 +17,7 @@ struct AboutView: View {
         ZStack {
             BackgroundView()
             
-            ScrollView {
+            ScrollView   {
                 Text("About Angklung")
                     .font(.system(size: 90))
                     .foregroundColor(textColor)
